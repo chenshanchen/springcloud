@@ -1,0 +1,36 @@
+server:
+  port: 3344
+spring:
+  application:
+    name: cloud-config-center # 注册进 Eureka 服务器的微服务名
+  cloud:
+    config:
+      server:
+        git:
+          # GitHub 上面的 Git 仓库的名字
+          uri:  https://github.com/chenshanchen/springcloud-config.git
+          # 搜索的目录
+          search-paths:
+            - springcloud-config
+      # 读取的分支
+      label: master
+
+# rabbit 相关配置
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+# 服务注册带 eureka 的地址
+eureka:
+  client:
+    service-url:
+      defaultZone:  http://localhost:7001/eureka,http://localhost:7001/eureka
+
+#rabbitmq 相关配置，暴露 bus 刷新配置的端点
+management:
+  endpoints: # 暴露 bus 刷新配置的端点
+    web:
+      exposure:
+        include: 'bus-refresh'
