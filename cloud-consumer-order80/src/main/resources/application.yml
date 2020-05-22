@@ -10,8 +10,16 @@ eureka:
     # 单节点无所谓，集群必须设置为 true 才能配合 ribbon 使用负载均衡
     fetchRegistry: true
     service-url:
+      #单机
+      #defaultZone: http://localhost:7001/eureka
       defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/
 
 spring:
   application:
     name: cloud-order-consumer
+  zipkin:
+    base-url: http://localhost:9411
+  sleuth:
+    sampler:
+    # 采样率介于 0-1 之间，默认为0.5，这里 probability 设置为 1
+    probability: 1
